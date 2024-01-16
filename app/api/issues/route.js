@@ -18,6 +18,6 @@ export const POST = async (req, res) => {
     const resp = await issueModel.create(body);
 
     return NextResponse.json({
-        message: "success",
+        message: "issue created successfully",
     });
 };

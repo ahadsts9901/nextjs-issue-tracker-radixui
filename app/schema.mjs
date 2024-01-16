@@ -13,6 +13,7 @@ const issueSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['OPEN', 'IN_PROGRESS', 'CLOSE'],
+        default: 'OPEN',
     },
     createdAt: {
         type: Date,
