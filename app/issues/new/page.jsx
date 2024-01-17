@@ -9,6 +9,7 @@ import axios from "axios";
 import { useRouter } from 'next/navigation';
 import { createIssueSchema } from "../../validationSchema.mjs";
 import { zodResolver } from "@hookform/resolvers/zod";
+import ErrorMessage from '@/app/components/ErrorMessage';
 
 const NewIssuePage = () => {
 
@@ -39,23 +40,22 @@ const NewIssuePage = () => {
                         setError('An unexpected error occured')
                     }
                 })}>
+
+                <ErrorMessage>
+                    {errors.title?.message}
+                </ErrorMessage>
                 <TextField.Root>
                     <TextField.Input placeholder="Title..." {...register("title")} />
                 </TextField.Root>
-                {
-                    errors.title && <Text color="red" as='p'>{errors.title.message}</Text>
-                }
                 {/* <TextArea placeholder="Description..." /> */}
+                <ErrorMessage>
+                    {errors.description?.message}
+                </ErrorMessage>
                 <Controller
                     name='description'
                     control={control}
                     render={({ field }) => <SimpleMDE {...field} />}
                 />
-                {
-                    errors.description && <Text color="red" as='p' style={{
-                        marginTop: "0"
-                    }} >{errors.description.message}</Text>
-                }
                 <Button>Submit New Issue</Button>
             </form>
         </div>
