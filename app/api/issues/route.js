@@ -4,15 +4,15 @@ import { issueModel } from "../../schema.mjs";
 import { NextRequest, NextResponse } from 'next/server';
 
 export const POST = async (req, res) => {
-    console.log("hello");
 
     const body = await req.json();
     const validation = createIssueSchema.safeParse(body);
 
     if (!validation.success) {
-        return NextResponse.json({
-            message: "validation error",
-        });
+        return NextResponse.json(
+            validation.error.format(),
+            { status: 400 }
+        );
     }
 
     const resp = await issueModel.create(body);
