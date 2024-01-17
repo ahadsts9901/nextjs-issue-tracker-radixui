@@ -22,6 +22,17 @@ const NewIssuePage = () => {
     })
     const router = useRouter()
 
+    const submitIssue = handleSubmit(async (data) => {
+        try {
+            setIsSubmitting(true)
+            const resp = await axios.post('/api/issues', data)
+            router.push('/')
+        } catch (error) {
+            setIsSubmitting(false)
+            setError('An unexpected error occured')
+        }
+    })
+
     return (
         <div className='max-w-2xl'>
             {
@@ -34,17 +45,7 @@ const NewIssuePage = () => {
             }
             <form
                 className='space-y-8'
-                onSubmit={handleSubmit(async (data) => {
-                    try {
-                        setIsSubmitting(true)
-                        const resp = await axios.post('/api/issues', data)
-                        router.push('/')
-                    } catch (error) {
-                        setIsSubmitting(false)
-                        setError('An unexpected error occured')
-                    }
-                })}>
-
+                onSubmit={submitIssue}>
                 <ErrorMessage>
                     {errors.title?.message}
                 </ErrorMessage>
