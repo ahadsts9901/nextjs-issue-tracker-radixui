@@ -1,5 +1,10 @@
 import mongoose from 'mongoose';
 
+const modelName = 'issues';
+if (mongoose.models[modelName]) {
+    delete mongoose.models[modelName];
+}
+
 const issueSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -25,4 +30,4 @@ const issueSchema = new mongoose.Schema({
     },
 });
 
-export const issueModel = mongoose.model('issues', issueSchema);
+export const issueModel = mongoose.model(modelName, issueSchema);
